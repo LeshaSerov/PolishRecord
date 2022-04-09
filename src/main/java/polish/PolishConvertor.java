@@ -37,6 +37,7 @@ public class PolishConvertor {
                 processOperation(c, stack, result);
             }
         }
+        result.add(stack.stream().map(x->new StringBuilder(x).reverse()).map(String::valueOf).collect(Collectors.joining()));
         return Collections.emptyList();
     }
 
@@ -60,7 +61,9 @@ public class PolishConvertor {
         number.add(symbol);
     };
     void processBracket(char symbol, Stack<Character> stack, List<String> result) {};
-    void processOperation(char symbol, Stack<Character> stack, List<String> result) {};
+    void processOperation(char symbol, Stack<Character> stack, List<String> result) {
+        stack.add(symbol);
+    };
 
     void collectNumberAndPushToResult(List <Character> number, List<String> result){
         if (number == null || number.isEmpty())
@@ -68,6 +71,7 @@ public class PolishConvertor {
             return;
         }
         result.add(number.stream().map(String::valueOf).collect(Collectors.joining()));
+        number.clear();
     }
 
 
